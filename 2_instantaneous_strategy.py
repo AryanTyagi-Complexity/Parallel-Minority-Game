@@ -2,7 +2,7 @@
 Parallel Minority Game - Instantaneous Strategy
 """
 
-import numpy as np
+import numpy as np 
 import matplotlib.pyplot as plt
 from ran2_generator import Ran2Generator
 
