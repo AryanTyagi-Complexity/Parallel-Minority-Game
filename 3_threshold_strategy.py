@@ -105,7 +105,7 @@ def main():
 
     colors = plt.cm.rainbow(np.linspace(0, 1, len(G_VALUES)))
 
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(12, 10))
+    fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6)) = plt.subplots(3, 2, figsize=(12, 15))
 
     for idx, g in enumerate(G_VALUES):
         ax1.loglog(time[1:], all_activity[g][1:], color=colors[idx])
@@ -114,8 +114,8 @@ def main():
     ax1.set_title('Activity vs Time')
     ax2.set_title('Fraction vs Time')
 
-    g_super = [g for g in G_VALUES if g > GC]
-    g_sub = [g for g in G_VALUES if g < GC]
+    g_super = [g for g in G_VALUES ]
+    g_sub = [g for g in G_VALUES ]
 
     for idx, g in enumerate(g_super):
         a = all_activity[g]
@@ -130,6 +130,14 @@ def main():
         ax3.loglog(x, y_act, color=colors[color_idx])
         ax4.loglog(x, y_frac, color=colors[color_idx])
 
+    ax3.set_xlabel(r'$t |g - g_c|^{\nu}$')
+    ax3.set_ylabel(r'$A(t) t^{\delta}$')
+    ax3.set_title('Activity Collapse (Supercritical)')
+
+    ax4.set_xlabel(r'$t |g - g_c|^{\nu}$')
+    ax4.set_ylabel(r'$F(t) t^{\delta}$')
+    ax4.set_title('Fraction Collapse (Supercritical)')
+
     for idx, g in enumerate(g_sub):
         a = all_activity[g]
         f = all_fractions[g]
@@ -140,16 +148,16 @@ def main():
         y_frac = f * (time ** DELTA_SUB)
         
         color_idx = G_VALUES.index(g)
-        ax3.loglog(x, y_act, color=colors[color_idx], linestyle='--')
-        ax4.loglog(x, y_frac, color=colors[color_idx], linestyle='--')
+        ax5.loglog(x, y_act, color=colors[color_idx])
+        ax6.loglog(x, y_frac, color=colors[color_idx])
 
-    ax3.set_xlabel(r'$t |g - g_c|^{\nu}$')
-    ax3.set_ylabel(r'$A(t) t^{\delta}$')
-    ax3.set_title('Activity Collapse')
+    ax5.set_xlabel(r'$t |g - g_c|^{\nu}$')
+    ax5.set_ylabel(r'$A(t) t^{\delta}$')
+    ax5.set_title('Activity Collapse (Subcritical)')
 
-    ax4.set_xlabel(r'$t |g - g_c|^{\nu}$')
-    ax4.set_ylabel(r'$F(t) t^{\delta}$')
-    ax4.set_title('Fraction Collapse')
+    ax6.set_xlabel(r'$t |g - g_c|^{\nu}$')
+    ax6.set_ylabel(r'$F(t) t^{\delta}$')
+    ax6.set_title('Fraction Collapse (Subcritical)')
 
     plt.tight_layout()
     plt.show()
